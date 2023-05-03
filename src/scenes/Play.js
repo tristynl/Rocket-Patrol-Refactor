@@ -10,6 +10,7 @@ class Play extends Phaser.Scene {
         this.load.image('liquid', './assets/liquid.png');
         this.load.image('pearls', './assets/pearls.png');
         this.load.image('background', './assets/background.png');
+        this.load.image('pudding', './assets/pudding.png');
         //Load spritesheet
         //this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
         this.load.spritesheet('explosion', './assets/enemysprite.png', {frameWidth: 32, frameHeight: 32, startFrame: 0, endFrame: 9});
@@ -38,6 +39,8 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'straw', 0, 30).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'liquid', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'pearls', 0, 10).setOrigin(0,0);
+        //Add enemy pudding (small)
+        this.ship04 = new Spaceship(this, game.config.width + 350, 150, 'pudding', 0, 50).setOrigin(0, 0);
 
         //Define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -84,6 +87,7 @@ class Play extends Phaser.Scene {
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            //this.add.text(game.config.width/2, game.config.height/2, 'High Score: ' + highscore, scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
@@ -95,10 +99,12 @@ class Play extends Phaser.Scene {
         //console.log(this.fire)
         //Check key input for restart / menu
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            //highscore = Math.max(this.p1Score);
             this.scene.restart();
         }
 
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            //highscore = Math.max(this.p1Score);
             this.scene.start("menuScene");
         }
 
@@ -109,6 +115,7 @@ class Play extends Phaser.Scene {
              this.ship01.update();               // update spaceship (x3)
             this.ship02.update();
             this.ship03.update();
+            this.ship04.update();
         }
 
         //Check collisions
@@ -126,6 +133,10 @@ class Play extends Phaser.Scene {
             //this.fire = false;
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
+        }
+        if (this.checkCollision(this.p1Rocket, this.ship04)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.ship04);
         }
 
         //do {

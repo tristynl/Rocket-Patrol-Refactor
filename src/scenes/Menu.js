@@ -7,7 +7,7 @@ class Menu extends Phaser.Scene {
         //Load images
         this.load.image('menuColor', './assets/menuColor.png');
         this.load.image('bobaone', './assets/boba1.png');
-        this.load.image('bobatwo', './assets/boba2.png');
+        //this.load.image('bobatwo', './assets/boba2.png');
         //Load audio
         this.load.audio('sfx_select', './assets/assets_blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/assets_explosion38.wav');
