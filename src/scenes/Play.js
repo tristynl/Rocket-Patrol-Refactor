@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         //Load images/tile sprites
-        this.load.image('rocket', './assets/rocket.png');
+        this.load.image('cup', './assets/cup.png');
         this.load.image('straw', './assets/straw.png');
         this.load.image('liquid', './assets/liquid.png');
         this.load.image('pearls', './assets/pearls.png');
@@ -26,8 +26,9 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
 
+        //this.text = this.add.text(32, 32);
         //Add Rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'cup').setOrigin(0.5, 0);
 
         //Add Spaceships (x3)
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'straw', 0, 30).setOrigin(0, 0);
@@ -51,6 +52,9 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
 
+        //Fire variable
+        //this.fire = true;
+        
         //Initialize score
         this.p1Score = 0;
 
@@ -82,6 +86,9 @@ class Play extends Phaser.Scene {
     }
 
     update() {
+       
+
+        //console.log(this.fire)
         //Check key input for restart / menu
         if(this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
             this.scene.restart();
@@ -102,17 +109,25 @@ class Play extends Phaser.Scene {
 
         //Check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
+           // this.fire = false;
             this.p1Rocket.reset();
             this.shipExplode(this.ship03);
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
+            //this.fire = false;
             this.p1Rocket.reset();
             this.shipExplode(this.ship02);
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
+            //this.fire = false;
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+
+        //do {
+        //    this.text.setText(`FIRE`);
+        //} while (!this.fire);
+        
     }
 
     checkCollision(rocket, ship) {
@@ -126,6 +141,8 @@ class Play extends Phaser.Scene {
             return false;
         }
     }
+
+    
 
     shipExplode(ship) {
         //Temporarily hide ship

@@ -4,6 +4,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        //Load image
+        this.load.image('menuColor', './assets/menuColor.png');
         //Load audio
         this.load.audio('sfx_select', './assets/assets_blip_select12.wav');
         this.load.audio('sfx_explosion', './assets/assets_explosion38.wav');
@@ -11,6 +13,8 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
+
+        this.add.image(0,0, 'menuColor').setOrigin(0,0);
         //Menu text configuration
         let menuConfig = {
             fontFamily: 'Courier',
@@ -35,6 +39,7 @@ class Menu extends Phaser.Scene {
         //Define keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+  
     }
 
     update() {
