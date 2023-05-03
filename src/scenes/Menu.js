@@ -15,10 +15,10 @@ class Menu extends Phaser.Scene {
         //Background Music
         this.load.audio('music', './assets/relaxingmusic.mp3');
         //4 Random Audio
-        this.load.audio('one', './assets/audio1.mp3');
-        this.load.audio('two', './assets/audio2.mp3');
-        this.load.audio('three', './assets/audio3.mp3');
-        this.load.audio('four', './assets/audio4.mp3');
+        this.load.audio('sfx_explosion0', './assets/audio1.mp3');
+        this.load.audio('sfx_explosion1', './assets/audio2.mp3');
+        this.load.audio('sfx_explosion2', './assets/audio3.mp3');
+        this.load.audio('sfx_explosion3', './assets/audio4.mp3');
     }
 
     create() {

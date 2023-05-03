@@ -31,6 +31,8 @@ class Play extends Phaser.Scene {
 
         //Add music
         this.sound.add('music', {loop: false, volume : 0.1}).play();
+
+    
         //this.text = this.add.text(32, 32);
         //Add Rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'cup').setOrigin(0.5, 0);
@@ -91,6 +93,15 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← to Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+
+        this.clockTime = this.time.delayedCall(game.settings.gameTimer/2, () =>
+        {
+            this.ship01.increaseSpeed(5);
+            this.ship02.increaseSpeed(5);
+            this.ship03.increaseSpeed(5);
+            this.ship04.increaseSpeed(6);
+        }, null, this);
     }
 
     update() {
@@ -142,6 +153,8 @@ class Play extends Phaser.Scene {
         //do {
         //    this.text.setText(`FIRE`);
         //} while (!this.fire);
+
+        this.clockSpeed;
         
     }
 
@@ -174,6 +187,7 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score; 
         
-        this.sound.play('sfx_explosion');
+        //this.sound.play('sfx_explosion');
+        this.sound.play('sfx_explosion' + Math.floor(Math.random() * 4));
       }
 }
