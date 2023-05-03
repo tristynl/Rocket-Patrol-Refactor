@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('background', './assets/background.png');
         //Load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        
     }
 
     create() {
@@ -26,6 +27,8 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0 ,0);
 
+        //Add music
+        this.sound.add('music', {loop: false, volume : 0.1}).play();
         //this.text = this.add.text(32, 32);
         //Add Rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'cup').setOrigin(0.5, 0);
